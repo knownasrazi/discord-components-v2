@@ -2,6 +2,8 @@
 
 A skill for building Discord messages with Components V2: accent-colored containers, text-and-thumbnail sections, media galleries, separators, file components, and label-based modals.
 
+**Live docs site with rendered previews of every recipe:** https://knownasrazi.github.io/discord-components-v2/
+
 Every recipe ships a validated JSON payload plus implementations in discord.js (@discordjs/builders), seyfert, and discord.py.
 
 ## What is inside
@@ -13,6 +15,7 @@ Every recipe ships a validated JSON payload plus implementations in discord.js (
 | `recipes/` | one guide per pattern with full code in all three libraries |
 | `references/` | API reference, gotchas list, modals guide, library notes |
 | `scripts/validate-payloads.mjs` | re-validates the payloads (typecheck against official types) |
+| `docs/index.html` | the Pages site (served from `/docs`, previews each recipe live) |
 | `docs/mock/` | Discord-styled HTML previews of each recipe (open in a browser) |
 
 ## Recipes
