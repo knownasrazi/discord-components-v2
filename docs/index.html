@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>discord-components-v2</title>
+<meta name="description" content="tested payloads and recipes for discord components v2: container cards, media galleries and label modals in discord.js, seyfert and discord.py">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0e14;
+  --panel: #14151d;
+  --panel-2: #191b25;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e6e7ee;
+  --muted: #9aa0b4;
+  --lav: #c7b3ff;
+  --mint: #9fe8c8;
+  --peach: #ffd3a8;
+  --pink: #ff9fc0;
+  --blue: #9ecbff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+h1, h2, h3, .logo { font-family: "Baloo 2", "Segoe UI", system-ui, sans-serif; }
+
+/* floating blobs */
+.blob { position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.35; z-index: 0; pointer-events: none; }
+.blob-1 { width: 420px; height: 420px; background: #6b5bff; top: -140px; left: -120px; animation: drift 16s ease-in-out infinite alternate; }
+.blob-2 { width: 360px; height: 360px; background: #ff7ab8; top: 30%; right: -160px; animation: drift 20s ease-in-out infinite alternate-reverse; }
+.blob-3 { width: 300px; height: 300px; background: #2ec4a5; bottom: -120px; left: 25%; animation: drift 24s ease-in-out infinite alternate; }
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(50px, 40px) scale(1.12); }
+}
+
+.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* nav */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px);
+  background: rgba(13, 14, 20, 0.75);
+  border-bottom: 1px solid var(--line);
+}
+nav .wrap { display: flex; align-items: center; gap: 20px; height: 60px; }
+.logo { font-size: 20px; font-weight: 800; letter-spacing: 0.01em; }
+.logo .star { color: var(--lav); }
+nav a.navlink { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.15s; }
+nav a.navlink:hover { color: var(--text); }
+nav .spacer { flex: 1; }
+.ghbtn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 16px; font-size: 14px; font-weight: 600;
+  color: var(--text); text-decoration: none; background: var(--panel);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.ghbtn:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.2); }
+
+/* hero */
+.hero { padding: 84px 0 48px; text-align: center; }
+.badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+.chip {
+  font-size: 12.5px; font-weight: 600; color: var(--muted);
+  border: 1px solid var(--line); background: var(--panel);
+  border-radius: 999px; padding: 5px 13px;
+}
+.chip b { color: var(--text); }
+h1.title {
+  font-size: clamp(38px, 6vw, 62px); font-weight: 800; line-height: 1.08;
+  background: linear-gradient(100deg, var(--lav), var(--pink) 45%, var(--peach) 80%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  padding-bottom: 6px;
+}
+.hero p.sub { color: var(--muted); font-size: 17px; max-width: 560px; margin: 14px auto 30px; line-height: 1.6; }
+.hero .cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.btn-main {
+  background: linear-gradient(100deg, #7c5cff, #b25cff);
+  color: #fff; border: none; border-radius: 999px;
+  padding: 12px 26px; font-size: 15px; font-weight: 700; text-decoration: none;
+  font-family: inherit; transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 8px 28px rgba(124, 92, 255, 0.35);
+}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(124, 92, 255, 0.45); }
+.btn-ghost {
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 12px 26px; font-size: 15px; font-weight: 600;
+  color: var(--text); text-decoration: none; background: var(--panel);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.btn-ghost:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.2); }
+.hero .mini { margin-top: 18px; color: var(--muted); font-size: 13px; }
+.hero .mini code {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+  padding: 2px 7px; font-size: 12.5px; color: var(--mint);
+  font-family: Consolas, monospace;
+}
+
+/* section headers */
+section { padding: 56px 0 8px; }
+.sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+.sec-head h2 { font-size: 30px; font-weight: 800; }
+.sec-head .count { color: var(--muted); font-size: 14px; font-weight: 600; }
+.sec-desc { color: var(--muted); font-size: 15px; margin-bottom: 28px; max-width: 640px; line-height: 1.6; }
+
+/* recipe cards */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 20px; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.16); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45); }
+.preview {
+  position: relative; height: 230px; overflow: hidden;
+  background: #313338; border-bottom: 1px solid var(--line);
+}
+.preview iframe {
+  width: 200%; height: 200%;
+  transform: scale(0.5); transform-origin: 0 0;
+  border: 0; pointer-events: none;
+}
+.preview .chrome {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px;
+  background: linear-gradient(rgba(20, 21, 29, 0.9), rgba(20, 21, 29, 0));
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.preview .fname {
+  margin-left: 6px; font-size: 11px; color: var(--muted);
+  font-family: Consolas, monospace;
+}
+.preview .open-full {
+  position: absolute; right: 10px; bottom: 10px; z-index: 2;
+  opacity: 0; transition: opacity 0.15s;
+  background: rgba(13, 14, 20, 0.85); border: 1px solid var(--line);
+  color: var(--text); font-size: 12px; font-weight: 600;
+  border-radius: 999px; padding: 6px 12px; text-decoration: none;
+}
+.card:hover .open-full { opacity: 1; }
+.card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+.card .head { display: flex; align-items: center; gap: 9px; }
+.card .head .em { font-size: 19px; }
+.card h3 { font-size: 19px; font-weight: 700; }
+.card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag {
+  font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 10px;
+  border: 1px solid transparent;
+}
+.card p.desc { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin-top: 10px; }
+.card .links { display: flex; gap: 14px; margin-top: auto; padding-top: 14px; }
+.card .links a { font-size: 13px; font-weight: 600; text-decoration: none; }
+.card .links a.recipe { color: var(--lav); }
+.card .links a.json { color: var(--mint); }
+.card .links a:hover { text-decoration: underline; }
+
+/* payloads */
+.pay-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 700px) { .pay-grid { grid-template-columns: 1fr; } }
+.pay {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px 16px;
+  color: var(--text); text-decoration: none;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.pay:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.18); }
+.pay .ico {
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700;
+}
+.pay .nm { font-family: Consolas, monospace; font-size: 13.5px; font-weight: 600; }
+.pay .dsc { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+
+/* reference */
+.ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 820px) { .ref-grid { grid-template-columns: repeat(2, 1fr); } }
+.ref {
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 14px; padding: 18px; text-decoration: none; color: var(--text);
+  transition: transform 0.15s, border-color 0.15s; display: block;
+}
+.ref:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.18); }
+.ref .em { font-size: 22px; }
+.ref h3 { font-size: 16px; margin-top: 8px; }
+.ref p { color: var(--muted); font-size: 13px; margin-top: 5px; line-height: 1.5; }
+
+/* footer */
+footer { margin-top: 70px; border-top: 1px solid var(--line); padding: 30px 0 44px; text-align: center; }
+footer .fl { color: var(--muted); font-size: 13.5px; line-height: 1.7; }
+footer a { color: var(--lav); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<nav>
+  <div class="wrap">
+    <span class="logo">components<span class="star">·v2</span></span>
+    <a class="navlink" href="#recipes">recipes</a>
+    <a class="navlink" href="#payloads">payloads</a>
+    <a class="navlink" href="#reference">reference</a>
+    <span class="spacer"></span>
+    <a class="ghbtn" href="https://github.com/knownasrazi/discord-components-v2">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
+      star
+    </a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="badge-row">
+      <span class="chip"><b>9</b> recipes</span>
+      <span class="chip"><b>10</b> typechecked payloads</span>
+      <span class="chip"><b>38</b> gotchas</span>
+      <span class="chip"><b>3</b> libraries</span>
+    </div>
+    <h1 class="title">discord components v2, done right</h1>
+    <p class="sub">containers, media galleries, file drops and label modals. every payload is typechecked against the real api types and shipped as json plus discord.js, seyfert and discord.py code.</p>
+    <div class="cta">
+      <a class="btn-main" href="#recipes">browse the recipes</a>
+      <a class="btn-ghost" href="https://github.com/knownasrazi/discord-components-v2">view on github</a>
+    </div>
+    <p class="mini">works with <code>flags: 32768</code> · up to <code>40</code> components per message</p>
+  </header>
+
+  <section id="recipes">
+    <div class="sec-head"><h2>recipes</h2><span class="count">9 patterns</span></div>
+    <p class="sec-desc">each card renders the real payload below (scaled live preview). open the full preview or the markdown recipe for code in all three libraries.</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/shop-card.html</span></div>
+          <iframe src="mock/shop-card.html" loading="lazy" title="shop card preview"></iframe>
+          <a class="open-full" href="mock/shop-card.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🛒</span><h3>shop card</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">thumbnail</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">buttons</span>
+          </div>
+          <p class="desc">a product card with a gallery, perks and buy buttons. accent gold, disabled sell-all button included.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/shop-card.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/shop-card.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/leaderboard.html</span></div>
+          <iframe src="mock/leaderboard.html" loading="lazy" title="leaderboard preview"></iframe>
+          <a class="open-full" href="mock/leaderboard.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🏆</span><h3>leaderboard</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">sections</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">timestamps</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">subtext</span>
+          </div>
+          <p class="desc">ranked list with one section per player, a refresh accessory and small-text footers.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/leaderboard.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/leaderboard.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/pricing-panel.html</span></div>
+          <iframe src="mock/pricing-panel.html" loading="lazy" title="pricing panel preview"></iframe>
+          <a class="open-full" href="mock/pricing-panel.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">💳</span><h3>pricing panel</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">plan cards</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">cta row</span>
+          </div>
+          <p class="desc">three plan cards in a single message, each with its own button accessory, then a shared cta row.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/pricing-panel.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/pricing-panel.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/welcome-card.html</span></div>
+          <iframe src="mock/welcome-card.html" loading="lazy" title="welcome card preview"></iframe>
+          <a class="open-full" href="mock/welcome-card.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🏰</span><h3>welcome card</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">banner</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">mentions</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">top-level row</span>
+          </div>
+          <p class="desc">wide banner on top, then a section with the server icon, channel pointers and verify buttons.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/welcome-card.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/welcome-card.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/ticket-panel.html</span></div>
+          <iframe src="mock/ticket-panel.html" loading="lazy" title="ticket panel preview"></iframe>
+          <a class="open-full" href="mock/ticket-panel.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🎫</span><h3>ticket panel + modal</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">label modal</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">select</span>
+          </div>
+          <p class="desc">support desk with rules and a button that opens a label-based modal with text, a select and a paragraph field.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/ticket-panel.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/ticket-panel.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/now-playing.html</span></div>
+          <iframe src="mock/now-playing.html" loading="lazy" title="now playing preview"></iframe>
+          <a class="open-full" href="mock/now-playing.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🎶</span><h3>now playing</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">code block</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">emoji buttons</span>
+          </div>
+          <p class="desc">music player card with album art, an ascii progress bar in a code block and transport buttons.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/now-playing.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/now-playing.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/media-showcase.html</span></div>
+          <iframe src="mock/media-showcase.html" loading="lazy" title="media showcase preview"></iframe>
+          <a class="open-full" href="mock/media-showcase.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🖼️</span><h3>media showcase</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">gallery</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">spoiler</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">top-level</span>
+          </div>
+          <p class="desc">three-image grid with alt-text captions, one spoilered, and an apply button under the captions.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/media-showcase.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/media-showcase.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/announcement.html</span></div>
+          <iframe src="mock/announcement.html" loading="lazy" title="announcement preview"></iframe>
+          <a class="open-full" href="mock/announcement.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">📣</span><h3>announcement</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">timestamps</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">invisible separator</span>
+          </div>
+          <p class="desc">server news with absolute timestamps, a small-text disclaimer and a confirm row outside the card.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/announcement.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/announcement.json">payload</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview">
+          <div class="chrome"><span class="dot" style="background:#ff6b6b"></span><span class="dot" style="background:#ffd166"></span><span class="dot" style="background:#9fe8c8"></span><span class="fname">mock/spoiler-drop.html</span></div>
+          <iframe src="mock/spoiler-drop.html" loading="lazy" title="spoiler drop preview"></iframe>
+          <a class="open-full" href="mock/spoiler-drop.html" target="_blank">open full</a>
+        </div>
+        <div class="body">
+          <div class="head"><span class="em">🎁</span><h3>spoiler drop</h3></div>
+          <div class="tags">
+            <span class="tag" style="background:rgba(199,179,255,0.14);color:#c7b3ff">spoilered container</span>
+            <span class="tag" style="background:rgba(255,211,166,0.14);color:#ffd3a8">file card</span>
+            <span class="tag" style="background:rgba(159,232,200,0.14);color:#9fe8c8">multipart</span>
+          </div>
+          <p class="desc">gated patch notes: spoilered container, spoiler text spans and an attached file, all blurred until tapped.</p>
+          <div class="links"><a class="recipe" href="https://github.com/knownasrazi/discord-components-v2/blob/main/recipes/spoiler-drop.md">recipe</a><a class="json" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/spoiler-drop.json">payload</a></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="payloads">
+    <div class="sec-head"><h2>payloads</h2><span class="count">10 files · all typechecked</span></div>
+    <p class="sec-desc">plain json, validated against discord-api-types with <code style="background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2px 6px;font-size:12.5px;color:var(--mint)">satisfies</code>. copy any of them straight into a webhook or REST call.</p>
+    <div class="pay-grid">
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/shop-card.json"><span class="ico" style="background:rgba(199,179,255,0.14);color:#c7b3ff">{ }</span><span><span class="nm">shop-card.json</span><div class="dsc">container · 11 components</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/leaderboard.json"><span class="ico" style="background:rgba(159,232,200,0.14);color:#9fe8c8">{ }</span><span><span class="nm">leaderboard.json</span><div class="dsc">container · sections · timestamps</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/pricing-panel.json"><span class="ico" style="background:rgba(159,142,255,0.14);color:#9e8eff">{ }</span><span><span class="nm">pricing-panel.json</span><div class="dsc">container · 15 components</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/welcome-card.json"><span class="ico" style="background:rgba(255,211,166,0.14);color:#ffd3a8">{ }</span><span><span class="nm">welcome-card.json</span><div class="dsc">top-level gallery + section</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/ticket-panel.json"><span class="ico" style="background:rgba(158,203,255,0.14);color:#9ecbff">{ }</span><span><span class="nm">ticket-panel.json</span><div class="dsc">container · action row</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/ticket-panel.modal.json"><span class="ico" style="background:rgba(255,159,192,0.14);color:#ff9fc0">{ }</span><span><span class="nm">ticket-panel.modal.json</span><div class="dsc">label modal · type 9</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/now-playing.json"><span class="ico" style="background:rgba(158,232,255,0.14);color:#9ee8ff">{ }</span><span><span class="nm">now-playing.json</span><div class="dsc">container · emoji buttons</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/media-showcase.json"><span class="ico" style="background:rgba(255,211,166,0.14);color:#ffd3a8">{ }</span><span><span class="nm">media-showcase.json</span><div class="dsc">gallery · spoiler item</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/announcement.json"><span class="ico" style="background:rgba(255,159,159,0.14);color:#ff9f9f">{ }</span><span><span class="nm">announcement.json</span><div class="dsc">container · invisible separator</div></span></a>
+      <a class="pay" href="https://github.com/knownasrazi/discord-components-v2/blob/main/payloads/spoiler-drop.json"><span class="ico" style="background:rgba(158,203,255,0.14);color:#9ecbff">{ }</span><span><span class="nm">spoiler-drop.json</span><div class="dsc">spoilered container · attachment</div></span></a>
+    </div>
+  </section>
+
+  <section id="reference">
+    <div class="sec-head"><h2>reference</h2><span class="count">the deep stuff</span></div>
+    <div class="ref-grid">
+      <a class="ref" href="https://github.com/knownasrazi/discord-components-v2/blob/main/references/api-reference.md"><span class="em">📐</span><h3>api reference</h3><p>nesting tree, every field table, unfurled media, sending paths.</p></a>
+      <a class="ref" href="https://github.com/knownasrazi/discord-components-v2/blob/main/references/gotchas.md"><span class="em">⚠️</span><h3>gotchas</h3><p>38 traps found by actually running the code, from flags to library bugs.</p></a>
+      <a class="ref" href="https://github.com/knownasrazi/discord-components-v2/blob/main/references/modals.md"><span class="em">📝</span><h3>modals</h3><p>label-based modals end to end: file uploads, radio groups, checkbox rules.</p></a>
+      <a class="ref" href="https://github.com/knownasrazi/discord-components-v2/blob/main/references/libraries.md"><span class="em">🧩</span><h3>libraries</h3><p>one pattern in raw json, discord.js, seyfert and discord.py side by side.</p></a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fl">
+      built by <a href="https://github.com/knownasrazi">knownasrazi</a> · payloads verified with
+      <a href="https://github.com/discordjs/discord-api-types">discord-api-types</a> 0.38 ·
+      <a href="https://github.com/knownasrazi/discord-components-v2/blob/main/scripts/validate-payloads.mjs">validation script</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
