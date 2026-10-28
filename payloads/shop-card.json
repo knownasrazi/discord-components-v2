@@ -1,0 +1,61 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 15844367,
+      "components": [
+        {
+          "type": 9,
+          "id": 2,
+          "accessory": {
+            "type": 2,
+            "style": 1,
+            "label": "Open shop",
+            "custom_id": "shop:open"
+          },
+          "components": [
+            { "type": 10, "id": 3, "content": "## Ludlow Arms Shop\nGear rotates every Friday 20:00 UTC. Stock shown below is what is left this week." }
+          ]
+        },
+        { "type": 14, "id": 4, "divider": true, "spacing": 1 },
+        {
+          "type": 9,
+          "id": 5,
+          "accessory": {
+            "type": 11,
+            "media": { "url": "https://picsum.photos/seed/sword9/240/240" },
+            "description": "Flame-Touched Blade icon"
+          },
+          "components": [
+            { "type": 10, "id": 6, "content": "### Flame-Touched Blade\n- 42 ATK, +8 crit\n- One per customer\n**4,500g**" }
+          ]
+        },
+        {
+          "type": 9,
+          "id": 7,
+          "accessory": {
+            "type": 11,
+            "media": { "url": "https://picsum.photos/seed/shield4/240/240" },
+            "description": "Aegis Bulwark icon"
+          },
+          "components": [
+            { "type": 10, "id": 8, "content": "### Aegis Bulwark\n- 120 DEF, block stun\n- Tank only\n**6,200g**" }
+          ]
+        },
+        { "type": 14, "id": 9, "divider": false, "spacing": 2 },
+        {
+          "type": 1,
+          "id": 10,
+          "components": [
+            { "type": 2, "style": 3, "label": "Buy blade", "custom_id": "shop:buy:blade" },
+            { "type": 2, "style": 3, "label": "Buy shield", "custom_id": "shop:buy:shield" },
+            { "type": 2, "style": 2, "label": "Sell all", "custom_id": "shop:sell:all", "disabled": true },
+            { "type": 2, "style": 5, "label": "Armory docs", "url": "https://example.com/armory" }
+          ]
+        }
+      ]
+    }
+  ]
+}

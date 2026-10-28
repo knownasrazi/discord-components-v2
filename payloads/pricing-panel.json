@@ -1,0 +1,52 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 3066993,
+      "components": [
+        {
+          "type": 10,
+          "id": 2,
+          "content": "## Pick a plan\nAll plans include the full node pool, 24/7 uptime, and same-day support. Cancel anytime."
+        },
+        { "type": 14, "id": 3, "divider": true, "spacing": 1 },
+        {
+          "type": 9,
+          "id": 4,
+          "accessory": { "type": 2, "style": 2, "label": "Start free", "custom_id": "billing:start:free" },
+          "components": [
+            { "type": 10, "id": 5, "content": "### Free\n`$0 / month`\n- 1 node, shared CPU\n- 2GB RAM\n- Community support" }
+          ]
+        },
+        {
+          "type": 9,
+          "id": 6,
+          "accessory": { "type": 2, "style": 1, "label": "Get Pro", "custom_id": "billing:start:pro" },
+          "components": [
+            { "type": 10, "id": 7, "content": "### Pro\n`$9 / month`\n- 4 nodes, dedicated CPU\n- 8GB RAM, custom region\n- Priority support" }
+          ]
+        },
+        {
+          "type": 9,
+          "id": 8,
+          "accessory": { "type": 2, "style": 2, "label": "Contact sales", "custom_id": "billing:start:team" },
+          "components": [
+            { "type": 10, "id": 9, "content": "### Team\n`$29 / month`\n- 12 nodes, dedicated CPU\n- 32GB RAM, status webhook\n- 1h response SLA" }
+          ]
+        },
+        { "type": 14, "id": 10, "divider": false, "spacing": 2 },
+        {
+          "type": 1,
+          "id": 11,
+          "components": [
+            { "type": 2, "style": 1, "label": "Get Pro", "custom_id": "billing:start:pro" },
+            { "type": 2, "style": 2, "label": "Compare plans", "custom_id": "billing:compare" },
+            { "type": 2, "style": 5, "label": "Docs", "url": "https://example.com/docs" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 12,
+      "id": 1,
+      "items": [
+        {
+          "media": { "url": "https://picsum.photos/seed/showcase1/800/500" },
+          "description": "Cathedral plaza build, night cycle"
+        },
+        {
+          "media": { "url": "https://picsum.photos/seed/showcase2/800/500" },
+          "description": "Cathedral interior, chandelier view"
+        },
+        {
+          "media": { "url": "https://picsum.photos/seed/showcase3/800/500" },
+          "spoiler": true,
+          "description": "Unreleased catacomb wing (spoiler)"
+        }
+      ]
+    },
+    { "type": 14, "id": 2, "divider": false, "spacing": 1 },
+    {
+      "type": 9,
+      "id": 3,
+      "accessory": {
+        "type": 2,
+        "style": 2,
+        "label": "Apply for builder",
+        "custom_id": "show:apply"
+      },
+      "components": [
+        { "type": 10, "id": 4, "content": "## Build of the week: Hollow Cathedral\nBy **Marrowgate** and friends. Third image is a spoiler from the unreleased catacomb wing." }
+      ]
+    }
+  ]
+}

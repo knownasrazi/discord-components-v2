@@ -1,0 +1,35 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 46536,
+      "components": [
+        {
+          "type": 9,
+          "id": 2,
+          "accessory": {
+            "type": 11,
+            "media": { "url": "https://picsum.photos/seed/albumart/240/240" },
+            "description": "Album art for Aurora Drift"
+          },
+          "components": [
+            { "type": 10, "id": 3, "content": "### Now playing\n**Aurora Drift** — Neon Cartographer\n-# Requested by @Frostbyte" },
+            { "type": 10, "id": 4, "content": "```\n▶ 01:12 ━━━━━━━●━━━━━━━━ 03:41\n```" }
+          ]
+        },
+        {
+          "type": 1,
+          "id": 5,
+          "components": [
+            { "type": 2, "style": 2, "label": "Prev", "emoji": { "name": "⏮" }, "custom_id": "np:prev" },
+            { "type": 2, "style": 2, "label": "Pause", "emoji": { "name": "⏸" }, "custom_id": "np:pause" },
+            { "type": 2, "style": 2, "label": "Next", "emoji": { "name": "⏭" }, "custom_id": "np:next" },
+            { "type": 2, "style": 2, "label": "Queue", "emoji": { "name": "🧵" }, "custom_id": "np:queue" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 12,
+      "id": 1,
+      "items": [
+        {
+          "media": { "url": "https://picsum.photos/seed/bannercastle/1200/300" },
+          "description": "Welcome banner of a castle at dusk"
+        }
+      ]
+    },
+    { "type": 14, "id": 2, "divider": false, "spacing": 2 },
+    {
+      "type": 9,
+      "id": 3,
+      "accessory": {
+        "type": 11,
+        "media": { "url": "https://picsum.photos/seed/servericon/160/160" },
+        "description": "Server icon"
+      },
+      "components": [
+        {
+          "type": 10,
+          "id": 4,
+          "content": "## Welcome to Frosthelm\nRead the rules in <#111222333444555666>, grab roles in <#111222333444555999>, and say hi in <#111222333444555777>.\n\nReact raids start on the 15th. See the pinned guide for loot rules."
+        }
+      ]
+    },
+    {
+      "type": 1,
+      "id": 5,
+      "components": [
+        { "type": 2, "style": 3, "label": "Verify", "custom_id": "welcome:verify" },
+        { "type": 2, "style": 5, "label": "Rules", "url": "https://example.com/rules" }
+      ]
+    }
+  ]
+}

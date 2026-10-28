@@ -1,0 +1,32 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 15158332,
+      "components": [
+        {
+          "type": 10,
+          "id": 2,
+          "content": "## Server maintenance tonight\nDowntime window <t:1767187200:t> → <t:1767194400:t>. Expect 30-90 minutes of offline time."
+        },
+        { "type": 14, "id": 3, "divider": true, "spacing": 1 },
+        {
+          "type": 10,
+          "id": 4,
+          "content": "### What changes\n- Server merges: Vellmont + Kaelthas\n- New raid tier: The Drowned Chapel\n- Economy rebalance for consumables\n\n-# No character or inventory wipes"
+        }
+      ]
+    },
+    { "type": 14, "id": 5, "divider": false, "spacing": 1 },
+    {
+      "type": 1,
+      "id": 6,
+      "components": [
+        { "type": 2, "style": 3, "label": "Got it", "custom_id": "maint:ack" },
+        { "type": 2, "style": 5, "label": "Status page", "url": "https://status.example.com" }
+      ]
+    }
+  ]
+}

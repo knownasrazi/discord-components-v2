@@ -1,0 +1,28 @@
+{
+  "flags": 32768,
+  "attachments": [
+    { "id": 2, "filename": "patch-notes.txt", "description": "Patch notes for build 12.4" }
+  ],
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 3447003,
+      "spoiler": true,
+      "components": [
+        {
+          "type": 10,
+          "id": 2,
+          "content": "## ||Build 12.4 patch notes||\nFull notes attached. Highlights below."
+        },
+        { "type": 14, "id": 3, "divider": true, "spacing": 1 },
+        {
+          "type": 10,
+          "id": 4,
+          "content": "||- Frostbite nerf: 18% -> 12% slow\n- Shatter procs no longer ignore DR\n- New map rotation for ranked||"
+        },
+        { "type": 13, "id": 5, "file": { "url": "attachment://patch-notes.txt" }, "spoiler": true }
+      ]
+    }
+  ]
+}

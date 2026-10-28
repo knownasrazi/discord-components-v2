@@ -1,0 +1,64 @@
+{
+  "type": 9,
+  "data": {
+    "custom_id": "ticket:modal",
+    "title": "Open a support ticket",
+    "components": [
+      {
+        "type": 10,
+        "id": 1,
+        "content": "Tell us what is wrong. The more specific you are, the faster we can help."
+      },
+      {
+        "type": 18,
+        "id": 2,
+        "label": "Subject",
+        "description": "Short summary, shown in the staff queue",
+        "component": {
+          "type": 4,
+          "id": 3,
+          "custom_id": "ticket:subject",
+          "style": 1,
+          "min_length": 3,
+          "max_length": 64,
+          "placeholder": "Refund for order #2341",
+          "required": true
+        }
+      },
+      {
+        "type": 18,
+        "id": 4,
+        "label": "Category",
+        "component": {
+          "type": 3,
+          "id": 5,
+          "custom_id": "ticket:category",
+          "placeholder": "Where does this fit?",
+          "required": true,
+          "options": [
+            { "label": "Billing", "value": "billing", "description": "Payments, invoices, refunds", "emoji": { "name": "💳" } },
+            { "label": "Account", "value": "account", "description": "Login, verification, bans", "emoji": { "name": "👤" } },
+            { "label": "Bug", "value": "bug", "description": "Something is broken", "emoji": { "name": "🐛" } },
+            { "label": "Other", "value": "other", "description": "Anything else", "emoji": { "name": "❔" } }
+          ]
+        }
+      },
+      {
+        "type": 18,
+        "id": 6,
+        "label": "Details",
+        "description": "Include order numbers, timestamps, and what you already tried",
+        "component": {
+          "type": 4,
+          "id": 7,
+          "custom_id": "ticket:details",
+          "style": 2,
+          "min_length": 20,
+          "max_length": 2000,
+          "placeholder": "Describe the problem in as much detail as you can...",
+          "required": true
+        }
+      }
+    ]
+  }
+}

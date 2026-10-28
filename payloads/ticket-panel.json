@@ -1,0 +1,32 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "id": 1,
+      "accent_color": 3447003,
+      "components": [
+        {
+          "type": 10,
+          "id": 2,
+          "content": "## Support Tickets\nOpen a ticket for anything account or billing related. One ticket per issue, please."
+        },
+        { "type": 14, "id": 3, "divider": true, "spacing": 1 },
+        {
+          "type": 10,
+          "id": 4,
+          "content": "- Before opening: check <#111222333444555888> for known issues\n- Tickets are private between you and staff\n- Abandoned tickets close after 48h of inactivity"
+        },
+        {
+          "type": 1,
+          "id": 5,
+          "components": [
+            { "type": 2, "style": 3, "label": "Open a ticket", "custom_id": "ticket:open" },
+            { "type": 2, "style": 2, "label": "My tickets", "custom_id": "ticket:mine" },
+            { "type": 2, "style": 5, "label": "FAQ", "url": "https://example.com/faq" }
+          ]
+        }
+      ]
+    }
+  ]
+}
